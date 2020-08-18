@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="AdvancedControls.Dialogs.ColorPicker"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Visual="Material">
+    <Grid BackgroundColor="{Binding blurBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Frame
+            Grid.Row="1"
+            Grid.Column="1"
+            Padding="0"
+            BackgroundColor="{Binding dialogBackground}"
+            CornerRadius="{Binding dialogCornerRadius}"
+            HasShadow="True">
+            <Grid Padding="0" BackgroundColor="{Binding dialogBackground}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="AUTO" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0"
+                    BackgroundColor="{Binding selectedColor}"
+                    HeightRequest="50"
+                    WidthRequest="50" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    Text="A"
+                    TextColor="Black" />
+                <Slider
+                    x:Name="alpha"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    MaximumTrackColor="Black"
+                    MinimumTrackColor="Black"
+                    ThumbColor="Black"
+                    ValueChanged="Slider_ValueChanged" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    Text="R"
+                    TextColor="DarkRed" />
+                <Slider
+                    x:Name="red"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    MaximumTrackColor="DarkRed"
+                    MinimumTrackColor="DarkRed"
+                    ThumbColor="DarkRed"
+                    ValueChanged="Slider_ValueChanged" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    Text="G"
+                    TextColor="DarkGreen" />
+                <Slider
+                    x:Name="green"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    MaximumTrackColor="DarkGreen"
+                    MinimumTrackColor="DarkGreen"
+                    ThumbColor="DarkGreen"
+                    ValueChanged="Slider_ValueChanged" />
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    Text="B"
+                    TextColor="DarkBlue" />
+                <Slider
+                    x:Name="blue"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    MaximumTrackColor="DarkBlue"
+                    MinimumTrackColor="DarkBlue"
+                    ThumbColor="DarkBlue"
+                    ValueChanged="Slider_ValueChanged" />
+                <StackLayout
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="10,10,10,10"
+                    HorizontalOptions="Fill"
+                    Orientation="Horizontal">
+                    <Entry
+                        x:Name="hex"
+                        BackgroundColor="{Binding entryBackground}"
+                        HorizontalOptions="StartAndExpand"
+                        TextChanged="hex_TextChanged"
+                        TextColor="{Binding textColor}"
+                        WidthRequest="{Binding entryWidth}" />
+                    <Button
+                        x:Name="Cancel"
+                        BackgroundColor="White"
+                        Clicked="Cancel_Clicked"
+                        CornerRadius="{Binding buttonCornerRadius}"
+                        HorizontalOptions="End"
+                        Text="Abbrechen"
+                        TextColor="{Binding textColor}" />
+                    <Button
+                        x:Name="OK"
+                        BackgroundColor="White"
+                        Clicked="OK_Clicked"
+                        CornerRadius="{Binding buttonCornerRadius}"
+                        HorizontalOptions="End"
+                        Text="OK"
+                        TextColor="{Binding textColor}" />
+                </StackLayout>
+            </Grid>
+        </Frame>
+    </Grid>
+</ContentView>
