@@ -12,7 +12,7 @@ namespace AdvancedControls.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1063:Implement IDisposable Correctly", Justification = "<Ausstehend>")]
-    public partial class ColorPicker : ContentPage, IDisposable
+    public partial class ColorPicker : ContentView, IDisposable
     {
         public DialogSettings settings;
 
@@ -26,7 +26,7 @@ namespace AdvancedControls.Dialogs
             InitializeComponent();
         }
 
-        public async Task<Color> showDialog(Page parent, DialogSettings settings = null)
+        public async Task<Color> showDialog(Layout<View> parent, DialogSettings settings = null)
         {
             lock (colorLock)
             {
@@ -60,9 +60,9 @@ namespace AdvancedControls.Dialogs
             }
 
             BindingContext = this.settings;
-            await parent.Navigation.PushModalAsync(this);
+            parent.Children.Add(this);
             Color color = await waiter.Task;
-            await parent.Navigation.PopModalAsync();
+            parent.Children.Remove(this);
             return color;
         }
 

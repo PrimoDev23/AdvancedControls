@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<ContentView
     x:Class="AdvancedControls.Dialogs.ColorPicker"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -7,13 +7,13 @@
     <Grid BackgroundColor="{Binding blurBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="AUTO" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Frame
             Grid.Row="1"
@@ -119,22 +119,26 @@
                         WidthRequest="{Binding entryWidth}" />
                     <Button
                         x:Name="Cancel"
+                        Padding="0"
                         BackgroundColor="White"
                         Clicked="Cancel_Clicked"
                         CornerRadius="{Binding buttonCornerRadius}"
                         HorizontalOptions="End"
                         Text="Abbrechen"
-                        TextColor="{Binding textColor}" />
+                        TextColor="{Binding textColor}"
+                        Visual="Default" />
                     <Button
                         x:Name="OK"
+                        Padding="0"
                         BackgroundColor="White"
                         Clicked="OK_Clicked"
                         CornerRadius="{Binding buttonCornerRadius}"
                         HorizontalOptions="End"
                         Text="OK"
-                        TextColor="{Binding textColor}" />
+                        TextColor="{Binding textColor}"
+                        Visual="Default" />
                 </StackLayout>
             </Grid>
         </Frame>
     </Grid>
-</ContentPage>
+</ContentView>
