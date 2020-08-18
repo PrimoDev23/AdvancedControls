@@ -12,7 +12,7 @@ namespace AdvancedControls.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1063:Implement IDisposable Correctly", Justification = "<Ausstehend>")]
-    public partial class ColorPicker : ContentView, IDisposable
+    public partial class ColorPicker : ContentPage, IDisposable
     {
         public DialogSettings settings;
 
@@ -26,7 +26,7 @@ namespace AdvancedControls.Dialogs
             InitializeComponent();
         }
 
-        public async Task<Color> showDialog(Layout<View> parent, DialogSettings settings = null)
+        public async Task<Color> showDialog(Page parent, DialogSettings settings = null)
         {
             lock (colorLock)
             {
@@ -49,9 +49,9 @@ namespace AdvancedControls.Dialogs
             }
             else
             {
-                settings = new DialogSettings();
+                this.settings = new DialogSettings();
                 alpha.Value = 1;
-                hex.Text = settings.selectedColor.ToHex();
+                hex.Text = this.settings.selectedColor.ToHex();
             }
 
             lock (colorLock)
@@ -59,10 +59,10 @@ namespace AdvancedControls.Dialogs
                 currentlyCalculating = false;
             }
 
-            BindingContext = settings;
-            parent.Children.Add(this);
+            BindingContext = this.settings;
+            await parent.Navigation.PushModalAsync(this);
             Color color = await waiter.Task;
-            parent.Children.Remove(this);
+            await parent.Navigation.PopModalAsync();
             return color;
         }
 
@@ -139,7 +139,7 @@ namespace AdvancedControls.Dialogs
 
                 Color color = Color.FromHex(hex.Text);
 
-                if(color.R == -1 && color.G == -1 &&color.B == -1 && color.A == -1)
+                if (color.R == -1 && color.G == -1 && color.B == -1 && color.A == -1)
                 {
                     return;
                 }
