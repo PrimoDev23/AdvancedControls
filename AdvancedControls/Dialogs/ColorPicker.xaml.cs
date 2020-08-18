@@ -78,26 +78,21 @@ namespace AdvancedControls.Dialogs
 
         private async void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            try
+            lock (colorLock)
             {
-                lock (colorLock)
+                if (currentlyCalculating)
                 {
-                    if (currentlyCalculating)
-                    {
-                        return;
-                    }
-
-                    currentlyCalculating = true;
+                    return;
                 }
 
-                await setColor().ConfigureAwait(false);
+                currentlyCalculating = true;
             }
-            finally
+
+            await setColor().ConfigureAwait(false);
+
+            lock (colorLock)
             {
-                lock (colorLock)
-                {
-                    currentlyCalculating = false;
-                }
+                currentlyCalculating = false;
             }
         }
 
@@ -125,37 +120,32 @@ namespace AdvancedControls.Dialogs
 
         private void hex_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
+            lock (colorLock)
             {
-                lock (colorLock)
-                {
-                    if (currentlyCalculating)
-                    {
-                        return;
-                    }
-
-                    currentlyCalculating = true;
-                }
-
-                Color color = Color.FromHex(hex.Text);
-
-                if (color.R == -1 && color.G == -1 && color.B == -1 && color.A == -1)
+                if (currentlyCalculating)
                 {
                     return;
                 }
 
-                settings.selectedColor = color;
-                red.Value = settings.selectedColor.R;
-                green.Value = settings.selectedColor.G;
-                blue.Value = settings.selectedColor.B;
-                alpha.Value = settings.selectedColor.A;
+                currentlyCalculating = true;
             }
-            finally
+
+            Color color = Color.FromHex(hex.Text);
+
+            if (color.R == -1 && color.G == -1 && color.B == -1 && color.A == -1)
             {
-                lock (colorLock)
-                {
-                    currentlyCalculating = false;
-                }
+                return;
+            }
+
+            settings.selectedColor = color;
+            red.Value = settings.selectedColor.R;
+            green.Value = settings.selectedColor.G;
+            blue.Value = settings.selectedColor.B;
+            alpha.Value = settings.selectedColor.A;
+
+            lock (colorLock)
+            {
+                currentlyCalculating = false;
             }
         }
     }
