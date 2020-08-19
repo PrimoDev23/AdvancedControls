@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="AdvancedControls.Dialogs.ColorSelector"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid BackgroundColor="{Binding blurBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="{Binding rowHeight}" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Frame
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0"
+            Padding="0"
+            BackgroundColor="{Binding dialogBack}"
+            HasShadow="True">
+            <FlexLayout
+                x:Name="colorStack"
+                Margin="0"
+                AlignContent="SpaceEvenly"
+                AlignItems="Center"
+                BackgroundColor="{Binding dialogBack}"
+                FlexLayout.AlignSelf="Stretch"
+                HorizontalOptions="CenterAndExpand"
+                JustifyContent="SpaceEvenly"
+                Wrap="Wrap" />
+        </Frame>
+    </Grid>
+</ContentView>
