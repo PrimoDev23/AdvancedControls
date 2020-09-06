@@ -13,7 +13,11 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Dialogs\ColorSelector.xaml">
+<<<<<<< HEAD
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+=======
+      <Generator>MSBuild:Compile</Generator>
+>>>>>>> 487b155aa0365082b5373b35d7422b15437cf79f
     </EmbeddedResource>
   </ItemGroup>
 
