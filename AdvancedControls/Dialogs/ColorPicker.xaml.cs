@@ -14,7 +14,7 @@ namespace AdvancedControls.Dialogs
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1063:Implement IDisposable Correctly", Justification = "<Ausstehend>")]
     public partial class ColorPicker : ContentView, IDisposable
     {
-        public DialogSettings settings;
+        public ColorPickerSettings settings;
 
         private bool currentlyCalculating = false;
         private readonly object colorLock = new object();
@@ -26,7 +26,7 @@ namespace AdvancedControls.Dialogs
             InitializeComponent();
         }
 
-        public async Task<Color> showDialog(Layout<View> parent, DialogSettings settings = null)
+        public async Task<Color> showDialog(Layout<View> parent, ColorPickerSettings settings = null)
         {
             lock (colorLock)
             {
@@ -49,7 +49,7 @@ namespace AdvancedControls.Dialogs
             }
             else
             {
-                this.settings = new DialogSettings();
+                this.settings = new ColorPickerSettings();
                 alpha.Value = 1;
                 hex.Text = this.settings.selectedColor.ToHex();
             }
@@ -59,10 +59,22 @@ namespace AdvancedControls.Dialogs
                 currentlyCalculating = false;
             }
 
+            Color color;
             BindingContext = this.settings;
-            parent.Children.Add(this);
-            Color color = await waiter.Task;
-            parent.Children.Remove(this);
+
+            if (parent is Grid grid)
+            {
+                grid.Children.Add(this, 0, grid.ColumnDefinitions.Count == 0 ? 1 : grid.ColumnDefinitions.Count, 0, grid.RowDefinitions.Count == 0 ? 1 : grid.RowDefinitions.Count);
+                color = await waiter.Task;
+                grid.Children.Remove(this);
+            }
+            else
+            {
+                parent.Children.Add(this);
+                color = await waiter.Task;
+                parent.Children.Remove(this);
+            }
+
             return color;
         }
 
@@ -150,7 +162,7 @@ namespace AdvancedControls.Dialogs
         }
     }
 
-    public class DialogSettings : INotifyPropertyChanged
+    public class ColorPickerSettings : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
